@@ -7,6 +7,7 @@ contract FavoriteRecords {
     string[] approvedKeys = ["Thriller", "Back in Black", "The Bodyguard", "The Dark Side of the Moon",
      "Their Greatest Hits (1971-1975)", "Hotel California", "Come On Over", "Rumours", "Saturday Night Fever"];
     mapping(address => string[]) _userFavorites;
+
     // load approvedRecords
     constructor(){
         for(uint i=0; i < approvedKeys.length; i++){
@@ -35,18 +36,12 @@ contract FavoriteRecords {
 
     }
 
+    // return list of a users's favorite albums
     function getUserFavorites(address _address) external view returns(string[] memory){
-        
-        // for(uint i=0; i < approvedKeys.length; i++){
-        //     string memory item = approvedKeys[i];
-        //     if(userFavorites[_address][item] == true){
-        //         _userFavorites.push(item);
-        //     }
-        // }
         return _userFavorites[_address]; 
-         
     }
 
+    // Reset a user's favorite music list to default
     function resetUserFavorites() external{
        string[] memory favs = _userFavorites[msg.sender];
         for(uint i=0; i < favs.length; i++){
