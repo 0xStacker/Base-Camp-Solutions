@@ -2,6 +2,7 @@
 pragma solidity >=0.6.12 <0.9.0;
 
 contract EmployeeStorage{
+    // Save memory space by correctly packing all state variables
     uint16 private shares;
     uint32 private salary;
     uint public idNumber;
@@ -9,6 +10,7 @@ contract EmployeeStorage{
 
     error TooManyShares(uint _share);
 
+    // Initialize state variables on deployment
     constructor(uint16 _shares, string memory _name, uint32 _salary, uint _idNumber){
         shares = _shares;
         name = _name;
@@ -16,15 +18,19 @@ contract EmployeeStorage{
         idNumber = _idNumber;
     }
 
-
+    // return employee salary
     function viewSalary() public view returns(uint32){
         return salary;
     }
 
+    // return employee shares
     function viewShares() public view returns(uint16){
         return shares;
     }
 
+    /* Grant shares to employee provided the shares amount granted is not more than 5000;
+    Employee are also not allowed to have more than 500 shares in total
+    */
     function grantShares(uint16 _newShare) public{
         if(_newShare > 5000){
             revert("Too many shares");
